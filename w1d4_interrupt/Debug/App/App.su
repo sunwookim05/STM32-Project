@@ -1,0 +1,3 @@
+App.c:10:6:HAL_GPIO_EXTI_Callback	16	static
+App.c:16:6:HAL_TIM_PeriodElapsedCallback	16	static
+App.c:22:6:appLoop	8	static

@@ -1,0 +1,14 @@
+user_diskio_spi.c:104:6:xchg_spi	32	static
+user_diskio_spi.c:147:5:wait_ready	16	static
+user_diskio_spi.c:174:6:despiselect	8	static
+user_diskio_spi.c:188:5:spiselect	8	static
+user_diskio_spi.c:262:6:send_cmd	16	static
+user_diskio_spi.c:234:5:xmit_datablock.part.0	16	static
+user_diskio_spi.c:89:6:SPI_Timer_On	8	static
+user_diskio_spi.c:94:9:SPI_Timer_Status	8	static
+user_diskio_spi.c:205:5:rcvr_datablock	16	static
+user_diskio_spi.c:321:16:USER_SPI_initialize	32	static
+user_diskio_spi.c:377:16:USER_SPI_status	0	static
+user_diskio_spi.c:392:16:USER_SPI_read	16	static
+user_diskio_spi.c:431:16:USER_SPI_write	24	static
+user_diskio_spi.c:472:16:USER_SPI_ioctl	32	static

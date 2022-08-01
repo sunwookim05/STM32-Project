@@ -1,0 +1,3 @@
+cap1203.c:31:6:setSensitivity	24	static
+cap1203.c:12:6:cap1203_init	32	static
+cap1203.c:39:9:cap1203_getinputvalue	32	static

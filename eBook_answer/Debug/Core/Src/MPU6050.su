@@ -1,0 +1,5 @@
+MPU6050.c:13:6:init_MPU6050	32	static
+MPU6050.c:32:6:set_sensitivity	32	static
+MPU6050.c:88:6:read_gyro	56	static
+MPU6050.c:119:6:read_accel	56	static
+MPU6050.c:153:9:get_angle	16	static

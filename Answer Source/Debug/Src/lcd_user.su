@@ -1,0 +1,12 @@
+../Src/lcd_user.c:13:6:IIC_Writecmd	32	static
+../Src/lcd_user.c:18:6:IIC_Writedata	32	static
+../Src/lcd_user.c:23:6:OLED_Clear	16	static
+../Src/lcd_user.c:42:6:lcd_init	16	static
+../Src/lcd_user.c:77:6:OLED_Set_Pos	16	static
+../Src/lcd_user.c:84:6:set_poin	24	static
+../Src/lcd_user.c:95:6:OLED_ShowChar	32	static
+../Src/lcd_user.c:110:6:OLED_ShowBigChar	40	static
+../Src/lcd_user.c:122:6:OLED_ShowString	32	static
+../Src/lcd_user.c:147:6:OLED_ShowBigString	32	static
+../Src/lcd_user.c:172:6:OLED_ShowStringXY	24	static
+../Src/lcd_user.c:177:6:OLED_ShowBigStringXY	24	static

@@ -1,0 +1,3 @@
+App.c:16:6:setup	8	static
+App.c:21:6:HAL_ADC_ConvCpltCallback	16	static
+App.c:26:6:appLoop	8	static
