@@ -140,7 +140,6 @@ void ledoff() {
 	HI_SPEED(0);
 
 }
-
 void st() {
 	while (SW_UP == 0) {
 		HAL_Delay(75);
