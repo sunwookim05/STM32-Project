@@ -2653,11 +2653,11 @@ Disassembly of section .text:
 
 08001540 <read_ADC>:
 
-/* Private variables ---------------------------------------------------------*/
-ADC_HandleTypeDef hadc;
+/* USER CODE END PFP */
 
-/* USER CODE BEGIN PV */
-void read_ADC(uint16_t *cds, uint16_t *vr) {
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
+void read_ADC(uint16_t *cds, uint16_t *vr){
  8001540:	b580      	push	{r7, lr}
  8001542:	b082      	sub	sp, #8
  8001544:	af00      	add	r7, sp, #0

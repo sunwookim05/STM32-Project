@@ -45,14 +45,7 @@ typedef uint8_t boolean;
 ADC_HandleTypeDef hadc;
 
 /* USER CODE BEGIN PV */
-void read_ADC(uint16_t *cds, uint16_t *vr) {
-	HAL_ADC_Start(&hadc);
-	HAL_ADC_PollForConversion(&hadc, 1000);
-	*cds = HAL_ADC_GetValue(&hadc);
-	HAL_ADC_PollForConversion(&hadc, 1000);
-	*vr = HAL_ADC_GetValue(&hadc);
-	HAL_ADC_Stop(&hadc);
-}
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -65,7 +58,14 @@ static void MX_ADC_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void read_ADC(uint16_t *cds, uint16_t *vr){
+	HAL_ADC_Start(&hadc);
+	HAL_ADC_PollForConversion(&hadc, 1000);
+	*cds = HAL_ADC_GetValue(&hadc);
+	HAL_ADC_PollForConversion(&hadc, 1000);
+	*vr = HAL_ADC_GetValue(&hadc);
+	HAL_ADC_Stop(&hadc);
+}
 /* USER CODE END 0 */
 
 /**
