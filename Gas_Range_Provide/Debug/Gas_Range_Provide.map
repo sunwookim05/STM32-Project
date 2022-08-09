@@ -4104,7 +4104,7 @@ LOAD c:/st/stm32cubeide_1.9.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .debug_line    0x000000000000a712      0x7b2 ./Src/system_stm32l0xx.o
  .debug_line    0x000000000000aec4       0x83 ./startup/startup_stm32l052xx.o
 
-.debug_str      0x0000000000000000    0x7e51b
+.debug_str      0x0000000000000000    0x7e565
  .debug_str     0x0000000000000000    0x7616d ./Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal.o
                                       0x765a2 (size before relaxing)
  .debug_str     0x000000000007616d      0x732 ./Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_adc.o
@@ -4121,17 +4121,17 @@ LOAD c:/st/stm32cubeide_1.9.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
                                       0x76333 (size before relaxing)
  .debug_str     0x0000000000078239      0x4a6 ./Src/control_hardware.o
                                       0x76271 (size before relaxing)
- .debug_str     0x00000000000786df     0x458c ./Src/main.o
-                                      0x7b4ae (size before relaxing)
- .debug_str     0x000000000007cc6b       0x25 ./Src/stm32l0xx_hal_msp.o
+ .debug_str     0x00000000000786df     0x45d6 ./Src/main.o
+                                      0x7b4d0 (size before relaxing)
+ .debug_str     0x000000000007ccb5       0x25 ./Src/stm32l0xx_hal_msp.o
                                       0x76ac8 (size before relaxing)
- .debug_str     0x000000000007cc90       0x71 ./Src/stm32l0xx_it.o
+ .debug_str     0x000000000007ccda       0x71 ./Src/stm32l0xx_it.o
                                       0x76615 (size before relaxing)
- .debug_str     0x000000000007cd01     0x1779 ./Src/syscalls.o
+ .debug_str     0x000000000007cd4b     0x1779 ./Src/syscalls.o
                                        0x8983 (size before relaxing)
- .debug_str     0x000000000007e47a       0x72 ./Src/system_stm32l0xx.o
+ .debug_str     0x000000000007e4c4       0x72 ./Src/system_stm32l0xx.o
                                       0x75ef6 (size before relaxing)
- .debug_str     0x000000000007e4ec       0x2f ./startup/startup_stm32l052xx.o
+ .debug_str     0x000000000007e536       0x2f ./startup/startup_stm32l052xx.o
                                          0x57 (size before relaxing)
 
 .comment        0x0000000000000000       0x50
