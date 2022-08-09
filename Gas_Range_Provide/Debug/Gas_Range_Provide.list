@@ -35,11 +35,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  15 .debug_line   0000af47  00000000  00000000  00041461  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_str    0007e51b  00000000  00000000  0004c3a8  2**0
+ 16 .debug_str    0007e565  00000000  00000000  0004c3a8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .comment      00000050  00000000  00000000  000ca8c3  2**0
+ 17 .comment      00000050  00000000  00000000  000ca90d  2**0
                   CONTENTS, READONLY
- 18 .debug_frame  00002a40  00000000  00000000  000ca914  2**2
+ 18 .debug_frame  00002a40  00000000  00000000  000ca960  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -9635,30 +9635,30 @@ void led_ring_bit(uint8_t x) {
  8003c48:	05db      	lsls	r3, r3, #23
  8003c4a:	2220      	movs	r2, #32
  8003c4c:	629a      	str	r2, [r3, #40]	; 0x28
+		NS400;
 	} else {
 		LED_RING_GPIO_Port->BSRR = LED_RING_Pin;
 		NS400;
 		LED_RING_GPIO_Port->BRR = LED_RING_Pin;
-	}
-}
+		NS800;
  8003c4e:	e00c      	b.n	8003c6a <led_ring_bit+0x5a>
-		LED_RING_GPIO_Port->BSRR = LED_RING_Pin;
+	} else {
  8003c50:	23a0      	movs	r3, #160	; 0xa0
  8003c52:	05db      	lsls	r3, r3, #23
  8003c54:	2220      	movs	r2, #32
  8003c56:	619a      	str	r2, [r3, #24]
-		NS400;
+		LED_RING_GPIO_Port->BSRR = LED_RING_Pin;
  8003c58:	46c0      	nop			; (mov r8, r8)
  8003c5a:	46c0      	nop			; (mov r8, r8)
  8003c5c:	46c0      	nop			; (mov r8, r8)
  8003c5e:	46c0      	nop			; (mov r8, r8)
  8003c60:	46c0      	nop			; (mov r8, r8)
-		LED_RING_GPIO_Port->BRR = LED_RING_Pin;
+		NS400;
  8003c62:	23a0      	movs	r3, #160	; 0xa0
  8003c64:	05db      	lsls	r3, r3, #23
  8003c66:	2220      	movs	r2, #32
  8003c68:	629a      	str	r2, [r3, #40]	; 0x28
-}
+		NS800;
  8003c6a:	46c0      	nop			; (mov r8, r8)
  8003c6c:	46bd      	mov	sp, r7
  8003c6e:	b002      	add	sp, #8
@@ -9666,23 +9666,23 @@ void led_ring_bit(uint8_t x) {
 	...
 
 08003c74 <led_ring_update>:
-
-void led_ring_update(uint32_t *data_24bit) {
+	}
+}
  8003c74:	b5b0      	push	{r4, r5, r7, lr}
  8003c76:	b0cc      	sub	sp, #304	; 0x130
  8003c78:	af00      	add	r7, sp, #0
  8003c7a:	6078      	str	r0, [r7, #4]
+
+void led_ring_update(uint32_t *data_24bit) {
 	uint16_t i;
 	uint8_t data_bit[288];
-
-	for (i = 0; i < 288; i++) {
  8003c7c:	2397      	movs	r3, #151	; 0x97
  8003c7e:	005b      	lsls	r3, r3, #1
  8003c80:	18fb      	adds	r3, r7, r3
  8003c82:	2200      	movs	r2, #0
  8003c84:	801a      	strh	r2, [r3, #0]
  8003c86:	e02b      	b.n	8003ce0 <led_ring_update+0x6c>
-		data_bit[i] = data_24bit[i / 24] >> (23 - (i % 24)) & 1;
+
  8003c88:	2597      	movs	r5, #151	; 0x97
  8003c8a:	006d      	lsls	r5, r5, #1
  8003c8c:	197b      	adds	r3, r7, r5
@@ -9720,7 +9720,7 @@ void led_ring_update(uint32_t *data_24bit) {
  8003cd0:	1812      	adds	r2, r2, r0
  8003cd2:	19d2      	adds	r2, r2, r7
  8003cd4:	54d1      	strb	r1, [r2, r3]
-	for (i = 0; i < 288; i++) {
+	uint8_t data_bit[288];
  8003cd6:	197b      	adds	r3, r7, r5
  8003cd8:	881a      	ldrh	r2, [r3, #0]
  8003cda:	197b      	adds	r3, r7, r5
@@ -9734,14 +9734,14 @@ void led_ring_update(uint32_t *data_24bit) {
  8003cea:	005b      	lsls	r3, r3, #1
  8003cec:	429a      	cmp	r2, r3
  8003cee:	d3cb      	bcc.n	8003c88 <led_ring_update+0x14>
-	}
-
 	for (i = 0; i < 288; i++) {
+		data_bit[i] = data_24bit[i / 24] >> (23 - (i % 24)) & 1;
+	}
  8003cf0:	187b      	adds	r3, r7, r1
  8003cf2:	2200      	movs	r2, #0
  8003cf4:	801a      	strh	r2, [r3, #0]
  8003cf6:	e011      	b.n	8003d1c <led_ring_update+0xa8>
-		led_ring_bit(data_bit[i]);
+
  8003cf8:	2497      	movs	r4, #151	; 0x97
  8003cfa:	0064      	lsls	r4, r4, #1
  8003cfc:	193b      	adds	r3, r7, r4
@@ -9754,7 +9754,7 @@ void led_ring_update(uint32_t *data_24bit) {
  8003d0a:	5cd3      	ldrb	r3, [r2, r3]
  8003d0c:	0018      	movs	r0, r3
  8003d0e:	f7ff ff7f 	bl	8003c10 <led_ring_bit>
-	for (i = 0; i < 288; i++) {
+	}
  8003d12:	193b      	adds	r3, r7, r4
  8003d14:	881a      	ldrh	r2, [r3, #0]
  8003d16:	193b      	adds	r3, r7, r4
@@ -9768,8 +9768,8 @@ void led_ring_update(uint32_t *data_24bit) {
  8003d26:	005b      	lsls	r3, r3, #1
  8003d28:	429a      	cmp	r2, r3
  8003d2a:	d3e5      	bcc.n	8003cf8 <led_ring_update+0x84>
-	}
-}
+	for (i = 0; i < 288; i++) {
+		led_ring_bit(data_bit[i]);
  8003d2c:	46c0      	nop			; (mov r8, r8)
  8003d2e:	46c0      	nop			; (mov r8, r8)
  8003d30:	46bd      	mov	sp, r7
@@ -10671,7 +10671,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
  800436e:	781b      	ldrb	r3, [r3, #0]
  8004370:	2b00      	cmp	r3, #0
  8004372:	d00d      	beq.n	8004390 <HAL_TIM_PeriodElapsedCallback+0x38>
-		ledRingFlag = FALSE;
+		ledRingFlag = false;
  8004374:	4b09      	ldr	r3, [pc, #36]	; (800439c <HAL_TIM_PeriodElapsedCallback+0x44>)
  8004376:	2200      	movs	r2, #0
  8004378:	701a      	strb	r2, [r3, #0]
@@ -10738,7 +10738,7 @@ int main(void) {
  80043dc:	af00      	add	r7, sp, #0
 	/* USER CODE BEGIN 1 */
 	IOcon io;
-	boolean swFlag = FALSE, buzflag = FALSE, alflag = FALSE;
+	boolean swFlag = false, buzflag = false, alflag = false;
  80043de:	2327      	movs	r3, #39	; 0x27
  80043e0:	18fb      	adds	r3, r7, r3
  80043e2:	2200      	movs	r2, #0
@@ -10825,7 +10825,7 @@ int main(void) {
  800445c:	4bc2      	ldr	r3, [pc, #776]	; (8004768 <main+0x390>)
  800445e:	0018      	movs	r0, r3
  8004460:	f7ff f9d6 	bl	8003810 <HAL_TIM_Base_Start_IT>
-	ledRingFlag = TRUE;
+	ledRingFlag = true;
  8004464:	4bc1      	ldr	r3, [pc, #772]	; (800476c <main+0x394>)
  8004466:	2201      	movs	r2, #1
  8004468:	701a      	strb	r2, [r3, #0]
@@ -10853,7 +10853,7 @@ int main(void) {
  8004484:	f7fe fb98 	bl	8002bb8 <HAL_GPIO_ReadPin>
  8004488:	1e03      	subs	r3, r0, #0
  800448a:	d103      	bne.n	8004494 <main+0xbc>
-			stat.safe = TRUE;
+			stat.safe = true;
  800448c:	4bb8      	ldr	r3, [pc, #736]	; (8004770 <main+0x398>)
  800448e:	2201      	movs	r2, #1
  8004490:	705a      	strb	r2, [r3, #1]
@@ -10873,26 +10873,26 @@ int main(void) {
  80044a8:	4ab2      	ldr	r2, [pc, #712]	; (8004774 <main+0x39c>)
  80044aa:	4293      	cmp	r3, r2
  80044ac:	d906      	bls.n	80044bc <main+0xe4>
-					stat.on = TRUE;
+					stat.on = true;
  80044ae:	4bb0      	ldr	r3, [pc, #704]	; (8004770 <main+0x398>)
  80044b0:	2201      	movs	r2, #1
  80044b2:	715a      	strb	r2, [r3, #5]
-					stat.onn = FALSE;
+					stat.onn = false;
  80044b4:	4bae      	ldr	r3, [pc, #696]	; (8004770 <main+0x398>)
  80044b6:	2200      	movs	r2, #0
  80044b8:	70da      	strb	r2, [r3, #3]
  80044ba:	e005      	b.n	80044c8 <main+0xf0>
 				} else {
-					stat.onn = TRUE;
+					stat.onn = true;
  80044bc:	4bac      	ldr	r3, [pc, #688]	; (8004770 <main+0x398>)
  80044be:	2201      	movs	r2, #1
  80044c0:	70da      	strb	r2, [r3, #3]
-					stat.on = FALSE;
+					stat.on = false;
  80044c2:	4bab      	ldr	r3, [pc, #684]	; (8004770 <main+0x398>)
  80044c4:	2200      	movs	r2, #0
  80044c6:	715a      	strb	r2, [r3, #5]
 				}
-				stat.off = FALSE;
+				stat.off = false;
  80044c8:	4ba9      	ldr	r3, [pc, #676]	; (8004770 <main+0x398>)
  80044ca:	2200      	movs	r2, #0
  80044cc:	709a      	strb	r2, [r3, #2]
@@ -10903,29 +10903,29 @@ int main(void) {
  80044d2:	681b      	ldr	r3, [r3, #0]
  80044d4:	2b95      	cmp	r3, #149	; 0x95
  80044d6:	dc06      	bgt.n	80044e6 <main+0x10e>
-					stat.over = FALSE;
+					stat.over = false;
  80044d8:	4ba5      	ldr	r3, [pc, #660]	; (8004770 <main+0x398>)
  80044da:	2200      	movs	r2, #0
  80044dc:	701a      	strb	r2, [r3, #0]
-					buzflag = FALSE;
+					buzflag = false;
  80044de:	2326      	movs	r3, #38	; 0x26
  80044e0:	18fb      	adds	r3, r7, r3
  80044e2:	2200      	movs	r2, #0
  80044e4:	701a      	strb	r2, [r3, #0]
 				}
-				stat.safe = FALSE;
+				stat.safe = false;
  80044e6:	4ba2      	ldr	r3, [pc, #648]	; (8004770 <main+0x398>)
  80044e8:	2200      	movs	r2, #0
  80044ea:	705a      	strb	r2, [r3, #1]
-				stat.onn = FALSE;
+				stat.onn = false;
  80044ec:	4ba0      	ldr	r3, [pc, #640]	; (8004770 <main+0x398>)
  80044ee:	2200      	movs	r2, #0
  80044f0:	70da      	strb	r2, [r3, #3]
-				stat.on = FALSE;
+				stat.on = false;
  80044f2:	4b9f      	ldr	r3, [pc, #636]	; (8004770 <main+0x398>)
  80044f4:	2200      	movs	r2, #0
  80044f6:	715a      	strb	r2, [r3, #5]
-				stat.off = TRUE;
+				stat.off = true;
  80044f8:	4b9d      	ldr	r3, [pc, #628]	; (8004770 <main+0x398>)
  80044fa:	2201      	movs	r2, #1
  80044fc:	709a      	strb	r2, [r3, #2]
@@ -11175,7 +11175,7 @@ int main(void) {
  80046e4:	f7fe fa68 	bl	8002bb8 <HAL_GPIO_ReadPin>
  80046e8:	1e03      	subs	r3, r0, #0
  80046ea:	d107      	bne.n	80046fc <main+0x324>
-					stat.au = (!stat.au ? TRUE : FALSE);
+					stat.au = (!stat.au ? true : false);
  80046ec:	4b20      	ldr	r3, [pc, #128]	; (8004770 <main+0x398>)
  80046ee:	791b      	ldrb	r3, [r3, #4]
  80046f0:	425a      	negs	r2, r3
@@ -11238,7 +11238,7 @@ int main(void) {
  8004756:	2214      	movs	r2, #20
  8004758:	601a      	str	r2, [r3, #0]
 			}
-			swFlag = TRUE;
+			swFlag = true;
  800475a:	2327      	movs	r3, #39	; 0x27
  800475c:	18fb      	adds	r3, r7, r3
  800475e:	2201      	movs	r2, #1
@@ -11257,7 +11257,7 @@ int main(void) {
  800478c:	50000800 	.word	0x50000800
  8004790:	2000000c 	.word	0x2000000c
 		} else {
-			swFlag = FALSE;
+			swFlag = false;
  8004794:	2327      	movs	r3, #39	; 0x27
  8004796:	18fb      	adds	r3, r7, r3
  8004798:	2200      	movs	r2, #0
@@ -11294,7 +11294,7 @@ int main(void) {
  80047ce:	1d3b      	adds	r3, r7, #4
  80047d0:	681b      	ldr	r3, [r3, #0]
  80047d2:	4798      	blx	r3
-					ledRingFlag = TRUE;
+					ledRingFlag = true;
  80047d4:	4b9b      	ldr	r3, [pc, #620]	; (8004a44 <main+0x66c>)
  80047d6:	2201      	movs	r2, #1
  80047d8:	701a      	strb	r2, [r3, #0]
@@ -11316,7 +11316,7 @@ int main(void) {
  80047f0:	1d3b      	adds	r3, r7, #4
  80047f2:	681b      	ldr	r3, [r3, #0]
  80047f4:	4798      	blx	r3
-					ledRingFlag = TRUE;
+					ledRingFlag = true;
  80047f6:	4b93      	ldr	r3, [pc, #588]	; (8004a44 <main+0x66c>)
  80047f8:	2201      	movs	r2, #1
  80047fa:	701a      	strb	r2, [r3, #0]
@@ -11453,7 +11453,7 @@ int main(void) {
  80048f6:	005b      	lsls	r3, r3, #1
  80048f8:	429a      	cmp	r2, r3
  80048fa:	dd02      	ble.n	8004902 <main+0x52a>
-				stat.over = TRUE;
+				stat.over = true;
  80048fc:	4b53      	ldr	r3, [pc, #332]	; (8004a4c <main+0x674>)
  80048fe:	2201      	movs	r2, #1
  8004900:	701a      	strb	r2, [r3, #0]
@@ -11596,7 +11596,7 @@ int main(void) {
  80049fe:	f7fd f9e7 	bl	8001dd0 <HAL_GetTick>
  8004a02:	0003      	movs	r3, r0
  8004a04:	613b      	str	r3, [r7, #16]
-			buzflag = TRUE;
+			buzflag = true;
  8004a06:	193b      	adds	r3, r7, r4
  8004a08:	2201      	movs	r2, #1
  8004a0a:	701a      	strb	r2, [r3, #0]
@@ -11622,7 +11622,7 @@ int main(void) {
  8004a2a:	f7fd f9d1 	bl	8001dd0 <HAL_GetTick>
  8004a2e:	0003      	movs	r3, r0
  8004a30:	613b      	str	r3, [r7, #16]
-				alflag = TRUE;
+				alflag = true;
  8004a32:	193b      	adds	r3, r7, r4
  8004a34:	2201      	movs	r2, #1
  8004a36:	701a      	strb	r2, [r3, #0]
@@ -11640,7 +11640,7 @@ int main(void) {
  8004a5c:	2000000c 	.word	0x2000000c
 			}
 		} else {
-			BUZZER(FALSE);
+			BUZZER(false);
  8004a60:	2380      	movs	r3, #128	; 0x80
  8004a62:	0219      	lsls	r1, r3, #8
  8004a64:	23a0      	movs	r3, #160	; 0xa0
@@ -11648,7 +11648,7 @@ int main(void) {
  8004a68:	2200      	movs	r2, #0
  8004a6a:	0018      	movs	r0, r3
  8004a6c:	f7fe f8c1 	bl	8002bf2 <HAL_GPIO_WritePin>
-			alflag = FALSE;
+			alflag = false;
  8004a70:	2325      	movs	r3, #37	; 0x25
  8004a72:	18fb      	adds	r3, r7, r3
  8004a74:	2200      	movs	r2, #0
@@ -11707,7 +11707,7 @@ int main(void) {
  8004ae0:	009b      	lsls	r3, r3, #2
  8004ae2:	429a      	cmp	r2, r3
  8004ae4:	d808      	bhi.n	8004af8 <main+0x720>
-				BUZZER(TRUE);
+				BUZZER(true);
  8004ae6:	2380      	movs	r3, #128	; 0x80
  8004ae8:	0219      	lsls	r1, r3, #8
  8004aea:	23a0      	movs	r3, #160	; 0xa0
@@ -11717,7 +11717,7 @@ int main(void) {
  8004af2:	f7fe f87e 	bl	8002bf2 <HAL_GPIO_WritePin>
  8004af6:	e044      	b.n	8004b82 <main+0x7aa>
 			else
-				BUZZER(FALSE);
+				BUZZER(false);
  8004af8:	2380      	movs	r3, #128	; 0x80
  8004afa:	0219      	lsls	r1, r3, #8
  8004afc:	23a0      	movs	r3, #160	; 0xa0
@@ -11755,7 +11755,7 @@ int main(void) {
  8004b40:	005b      	lsls	r3, r3, #1
  8004b42:	429a      	cmp	r2, r3
  8004b44:	d808      	bhi.n	8004b58 <main+0x780>
-				BUZZER(TRUE);
+				BUZZER(true);
  8004b46:	2380      	movs	r3, #128	; 0x80
  8004b48:	0219      	lsls	r1, r3, #8
  8004b4a:	23a0      	movs	r3, #160	; 0xa0
@@ -11765,7 +11765,7 @@ int main(void) {
  8004b52:	f7fe f84e 	bl	8002bf2 <HAL_GPIO_WritePin>
  8004b56:	e007      	b.n	8004b68 <main+0x790>
 			else
-				BUZZER(FALSE);
+				BUZZER(false);
  8004b58:	2380      	movs	r3, #128	; 0x80
  8004b5a:	0219      	lsls	r1, r3, #8
  8004b5c:	23a0      	movs	r3, #160	; 0xa0

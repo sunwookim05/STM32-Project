@@ -33,9 +33,10 @@ typedef char *String;
 typedef enum {
 	OVER, SAFE, OFF, ONN, AUTO, ON
 } gstat;
+typedef uint8_t boolean;
 typedef enum {
-	FALSE, TRUE
-} boolean;
+	false, true
+} _BOOL;
 typedef struct {
 	boolean over, safe, off, onn, au, on;
 } Statflag;
@@ -53,7 +54,7 @@ typedef struct {
 #define NOW HAL_GetTick()
 #define TEMPUP(X) (X == 1 ? 900 : X == 2 ? 800 : X == 3 ? 700 : X == 4 ? 600 : X == 5 ? 500 : X == 6 ? 400 : X == 7 ? 300 : X == 8 ? 200 : X == 9 ? 100 : 0)
 #define TEMPDOWN(X) (X < 10 ? 2900 : X >= 300 ? 100 : X >= 200 ? 200 : X >= 100 ? 400 : X >= 40 ? 700 : X >= 20 ? 1100 : X >= 15 ? 1600 : X >= 10 ? 2200 : 0)
-#define LEDCLEAR LED(1, FALSE); LED(2, FALSE); LED(3, FALSE); LED(4, FALSE); LED(5, FALSE);
+#define LEDCLEAR LED(1, false); LED(2, false); LED(3, false); LED(4, false); LED(5, false);
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -67,7 +68,7 @@ TIM_HandleTypeDef htim6;
 /* USER CODE BEGIN PV */
 int temp = 20, fire = 0, fireset = 0, altemp = 20, autemp = 80;
 char bf[17];
-boolean ledRingFlag = FALSE;
+boolean ledRingFlag = false;
 Statflag stat;
 String statfont[6] = { "OVER HEAT", "SAFE LOCK", "OFF      ", "ON(NONE) ",
 		"AUTO ADJ ", "ON       " };
@@ -147,7 +148,7 @@ typedef struct _IO{
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	if (htim->Instance == htim6.Instance && ledRingFlag) {
-		ledRingFlag = FALSE;
+		ledRingFlag = false;
 		led_ring_update(led_ring_data[fire]);
 	}
 }
@@ -167,7 +168,7 @@ void setUp(IOcon *io){
 int main(void) {
 	/* USER CODE BEGIN 1 */
 	IOcon io;
-	boolean swFlag = FALSE, buzflag = FALSE, alflag = FALSE;
+	boolean swFlag = false, buzflag = false, alflag = false;
 	uint16_t cds, vr;
 	uint32_t last = NOW;
 	uint32_t flast = NOW;
@@ -206,7 +207,7 @@ int main(void) {
 	lcd_puts("\fSmart Gas Range\n             001");
 	HAL_Delay(2000);
 	HAL_TIM_Base_Start_IT(&htim6);
-	ledRingFlag = TRUE;
+	ledRingFlag = true;
 	io.Lcd_Print();
 
 	/* USER CODE END 2 */
@@ -219,26 +220,26 @@ int main(void) {
 		/* USER CODE BEGIN 3 */
 		io.Read_ADC(&cds, &vr);
 		if (!SW2)
-			stat.safe = TRUE;
+			stat.safe = true;
 		else {
 			if (!SW1) {
 				if (cds > 3000) {
-					stat.on = TRUE;
-					stat.onn = FALSE;
+					stat.on = true;
+					stat.onn = false;
 				} else {
-					stat.onn = TRUE;
-					stat.on = FALSE;
+					stat.onn = true;
+					stat.on = false;
 				}
-				stat.off = FALSE;
+				stat.off = false;
 			} else {
 				if (temp < 150) {
-					stat.over = FALSE;
-					buzflag = FALSE;
+					stat.over = false;
+					buzflag = false;
 				}
-				stat.safe = FALSE;
-				stat.onn = FALSE;
-				stat.on = FALSE;
-				stat.off = TRUE;
+				stat.safe = false;
+				stat.onn = false;
+				stat.on = false;
+				stat.off = true;
 			}
 		}
 		if (stat.off || stat.over || stat.safe) {
@@ -260,7 +261,7 @@ int main(void) {
 		if (!SW3 || !SW4 || !SW5) {
 			if (!swFlag) {
 				if (!SW3)
-					stat.au = (!stat.au ? TRUE : FALSE);
+					stat.au = (!stat.au ? true : false);
 				if (!SW4)
 					altemp -= 20;
 				if (!SW5)
@@ -270,21 +271,21 @@ int main(void) {
 				if (altemp < 20)
 					altemp = 20;
 			}
-			swFlag = TRUE;
+			swFlag = true;
 		} else {
-			swFlag = FALSE;
+			swFlag = false;
 		}
 		if (NOW - last >= 10) {
 			if (NOW - flast >= 100) {
 				if (fire < fireset) {
 					fire++;
 					io.Lcd_Print();
-					ledRingFlag = TRUE;
+					ledRingFlag = true;
 				}
 				if (fire > fireset) {
 					fire--;
 					io.Lcd_Print();
-					ledRingFlag = TRUE;
+					ledRingFlag = true;
 				}
 				flast = NOW;
 			}
@@ -294,7 +295,7 @@ int main(void) {
 			temp++;
 			tuplast = NOW;
 			if (temp > 300)
-				stat.over = TRUE;
+				stat.over = true;
 			io.Lcd_Print();
 		}
 		if (NOW - tdownlast >= TEMPDOWN(temp - 20)
@@ -307,30 +308,30 @@ int main(void) {
 		}
 		if (!buzflag && stat.over) {
 			buzlast = NOW;
-			buzflag = TRUE;
+			buzflag = true;
 		}
 		if (altemp < temp && altemp > 20) {
 			if (!alflag) {
 				buzlast = NOW;
-				alflag = TRUE;
+				alflag = true;
 			}
 		} else {
-			BUZZER(FALSE);
-			alflag = FALSE;
+			BUZZER(false);
+			alflag = false;
 		}
 		if (buzflag) {
 			if ((NOW - buzlast >= 100 && NOW - buzlast <= 200)
 					|| (NOW - buzlast >= 300 && NOW - buzlast <= 400)
 					|| (NOW - buzlast >= 500 && NOW - buzlast <= 600))
-				BUZZER(TRUE);
+				BUZZER(true);
 			else
-				BUZZER(FALSE);
+				BUZZER(false);
 		} else if (alflag) {
 			if ((NOW - buzlast >= 0 && NOW - buzlast <= 100)
 					|| (NOW - buzlast >= 200 && NOW - buzlast <= 300))
-				BUZZER(TRUE);
+				BUZZER(true);
 			else
-				BUZZER(FALSE);
+				BUZZER(false);
 			if (NOW - buzlast >= 1000)
 				buzlast = NOW;
 		}
