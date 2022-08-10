@@ -28,8 +28,8 @@ Src/main.o: ../Src/main.c ../Inc/main.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_pwr.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_pwr_ex.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim.h \
- ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h \
- ../Inc/lcd1602.h ../Inc/main.h ../Inc/control_hardware.h
+ ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h ../APP/app.h \
+ ../APP/led_ring.h
 ../Inc/main.h:
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h:
 ../Inc/stm32l0xx_hal_conf.h:
@@ -61,6 +61,5 @@ Src/main.o: ../Src/main.c ../Inc/main.h \
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_pwr_ex.h:
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim.h:
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h:
-../Inc/lcd1602.h:
-../Inc/main.h:
-../Inc/control_hardware.h:
+../APP/app.h:
+../APP/led_ring.h:

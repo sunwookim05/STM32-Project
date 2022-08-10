@@ -1,0 +1,10 @@
+../Inc/lcd1602.h:16:9:LcdReadByte	40	static
+../Inc/lcd1602.h:38:6:LcdSendNibble	16	static
+../Inc/lcd1602.h:46:6:LcdSendByte	16	static
+../Inc/lcd1602.h:55:6:LcdInit	16	static
+../Inc/lcd1602.h:67:6:lcd_gotoxy	24	static
+../Inc/lcd1602.h:75:6:lcd_putc	16	static
+../Inc/lcd1602.h:85:6:lcd_puts	32	static
+../Inc/lcd1602.h:93:6:lcd_cgram	48	static
+../APP/app.c:24:6:setUp	16	static
+../APP/app.c:33:6:appLoop	8	static

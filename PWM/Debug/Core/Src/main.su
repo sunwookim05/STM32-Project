@@ -1,10 +1,6 @@
-../Core/Src/main.c:67:6:Set_LED	24	static
-../Core/Src/main.c:76:6:Set_Brightness	16	static
-../Core/Src/main.c:96:6:WS2812_Send	32	static
-../Core/Src/main.c:130:6:HAL_TIM_PWM_PulseFinishedCallback	16	static
-../Core/Src/main.c:141:5:main	32	static
-../Core/Src/main.c:196:6:SystemClock_Config	96	static
-../Core/Src/main.c:237:13:MX_TIM2_Init	48	static
-../Core/Src/main.c:290:13:MX_DMA_Init	16	static
-../Core/Src/main.c:307:13:MX_GPIO_Init	16	static
-../Core/Src/main.c:322:6:Error_Handler	8	static,ignoring_inline_asm
+../Core/Src/main.c:67:5:main	32	static
+../Core/Src/main.c:122:6:SystemClock_Config	96	static
+../Core/Src/main.c:163:13:MX_TIM2_Init	48	static
+../Core/Src/main.c:216:13:MX_DMA_Init	16	static
+../Core/Src/main.c:233:13:MX_GPIO_Init	16	static
+../Core/Src/main.c:248:6:Error_Handler	8	static,ignoring_inline_asm
