@@ -27,6 +27,18 @@
         <file>
           <name>main.h</name>
         </file>
+        <file>
+          <name>Core\Src\main.c</name>
+        </file>
+        <file>
+          <name>Core\Src\stm32l0xx_it.c</name>
+        </file>
+        <file>
+          <name>Core\Src\stm32l0xx_hal_msp.c</name>
+        </file>
+        <file>
+          <name>Core\Src\system_stm32l0xx.c</name>
+        </file>
       </filestoremove>
       <sourceEntriesToRemove>
         <sourceEntry/>

@@ -1,6 +1,6 @@
-Src/control_hardware.o: ../Src/control_hardware.c ../Inc/main.h \
+APP/led_ring.o: ../APP/led_ring.c ../APP/led_ring.h ../Core/Inc/main.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h \
- ../Inc/stm32l0xx_hal_conf.h \
+ ../Core/Inc/stm32l0xx_hal_conf.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_rcc.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_def.h \
  ../Drivers/CMSIS/Device/ST/STM32L0xx/Include/stm32l0xx.h \
@@ -18,8 +18,6 @@ Src/control_hardware.o: ../Src/control_hardware.c ../Inc/main.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_gpio_ex.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_dma.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_cortex.h \
- ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_adc.h \
- ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_adc_ex.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_flash.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_flash_ex.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_flash_ramfunc.h \
@@ -28,11 +26,11 @@ Src/control_hardware.o: ../Src/control_hardware.c ../Inc/main.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_pwr.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_pwr_ex.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim.h \
- ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h \
- ../Inc/control_hardware.h
-../Inc/main.h:
+ ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h
+../APP/led_ring.h:
+../Core/Inc/main.h:
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h:
-../Inc/stm32l0xx_hal_conf.h:
+../Core/Inc/stm32l0xx_hal_conf.h:
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_rcc.h:
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_def.h:
 ../Drivers/CMSIS/Device/ST/STM32L0xx/Include/stm32l0xx.h:
@@ -50,8 +48,6 @@ Src/control_hardware.o: ../Src/control_hardware.c ../Inc/main.h \
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_gpio_ex.h:
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_dma.h:
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_cortex.h:
-../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_adc.h:
-../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_adc_ex.h:
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_flash.h:
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_flash_ex.h:
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_flash_ramfunc.h:
@@ -61,4 +57,3 @@ Src/control_hardware.o: ../Src/control_hardware.c ../Inc/main.h \
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_pwr_ex.h:
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim.h:
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h:
-../Inc/control_hardware.h:

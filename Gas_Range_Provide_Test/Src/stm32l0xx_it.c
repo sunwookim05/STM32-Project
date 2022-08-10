@@ -56,7 +56,7 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-extern TIM_HandleTypeDef htim6;
+extern DMA_HandleTypeDef hdma_tim2_ch1;
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -140,17 +140,17 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-  * @brief This function handles TIM6 global interrupt and DAC1/DAC2 underrun error interrupts.
+  * @brief This function handles DMA1 channel 4, channel 5, channel 6 and channel 7 interrupts.
   */
-void TIM6_DAC_IRQHandler(void)
+void DMA1_Channel4_5_6_7_IRQHandler(void)
 {
-  /* USER CODE BEGIN TIM6_DAC_IRQn 0 */
+  /* USER CODE BEGIN DMA1_Channel4_5_6_7_IRQn 0 */
 
-  /* USER CODE END TIM6_DAC_IRQn 0 */
-  HAL_TIM_IRQHandler(&htim6);
-  /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
+  /* USER CODE END DMA1_Channel4_5_6_7_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_tim2_ch1);
+  /* USER CODE BEGIN DMA1_Channel4_5_6_7_IRQn 1 */
 
-  /* USER CODE END TIM6_DAC_IRQn 1 */
+  /* USER CODE END DMA1_Channel4_5_6_7_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
