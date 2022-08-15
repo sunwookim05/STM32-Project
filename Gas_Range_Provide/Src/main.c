@@ -110,18 +110,7 @@ void read_adc(uint16_t *cds, uint16_t *vr) {
 
 void lcd_print() {
 	String bf = (char *)malloc(sizeof(char) * 17);
-	if (stat.over)
-		gasstat = OVER;
-	else if (stat.safe)
-		gasstat = SAFE;
-	else if (stat.off)
-		gasstat = OFF;
-	else if (stat.onn)
-		gasstat = ONN;
-	else if (stat.au)
-		gasstat = AUTO;
-	else if (stat.on)
-		gasstat = ON;
+	gasstat = (stat.over ? OVER : stat.safe ? SAFE : stat.off ? OFF : stat.onn ? ONN : stat.au ? AUTO : stat.on ? ON : 0);
 	sprintf(bf, "TEMP:%03d%cC  %c:%d ", temp, 0xDF, 1, fireset);
 	lcd_gotoxy(0, 1);
 	lcd_puts(bf);
