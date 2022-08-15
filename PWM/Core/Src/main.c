@@ -98,13 +98,11 @@ int main(void) {
 	/* USER CODE BEGIN WHILE */
 	while (1) {
 		for (int i = 0; i < 46; i++) {
-			Set_Brightness(i);
 			WS2812_Send();
 			HAL_Delay(50);
 		}
 
 		for (int i = 45; i >= 0; i--) {
-			Set_Brightness(i);
 			WS2812_Send();
 			HAL_Delay(50);
 		}

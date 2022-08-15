@@ -23,6 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
+#include <stdlib.h>
 #include "lcd1602.h"
 #include "control_hardware.h"
 /* USER CODE END Includes */
@@ -51,7 +52,7 @@ typedef struct {
 #define SW5 HAL_GPIO_ReadPin(SW_B_GPIO_Port, SW_B_Pin)
 #define BUZZER(X) HAL_GPIO_WritePin(BUZZ_GPIO_Port, BUZZ_Pin, X)
 #define LED(N, X) HAL_GPIO_WritePin(LED##N##_GPIO_Port, LED##N##_Pin, !X)
-#define NOW HAL_GetTick()
+#define NOW(X) (HAL_GetTick() - X)
 #define TEMPUP(X) (X == 1 ? 900 : X == 2 ? 800 : X == 3 ? 700 : X == 4 ? 600 : X == 5 ? 500 : X == 6 ? 400 : X == 7 ? 300 : X == 8 ? 200 : X == 9 ? 100 : 0)
 #define TEMPDOWN(X) (X < 10 ? 2900 : X >= 300 ? 100 : X >= 200 ? 200 : X >= 100 ? 400 : X >= 40 ? 700 : X >= 20 ? 1100 : X >= 15 ? 1600 : X >= 10 ? 2200 : 0)
 #define LEDCLEAR LED(1, false); LED(2, false); LED(3, false); LED(4, false); LED(5, false);
@@ -67,7 +68,6 @@ ADC_HandleTypeDef hadc;
 TIM_HandleTypeDef htim6;
 /* USER CODE BEGIN PV */
 int temp = 20, fire = 0, fireset = 0, altemp = 20, autemp = 80;
-char bf[17];
 boolean ledRingFlag = false;
 Statflag stat;
 String statfont[6] = { "OVER HEAT", "SAFE LOCK", "OFF      ", "ON(NONE) ",
@@ -109,6 +109,7 @@ void read_adc(uint16_t *cds, uint16_t *vr) {
 }
 
 void lcd_print() {
+	String bf = (char *)malloc(sizeof(char) * 17);
 	if (stat.over)
 		gasstat = OVER;
 	else if (stat.safe)
@@ -127,6 +128,7 @@ void lcd_print() {
 	sprintf(bf, "[%.9s][%03d]", statfont[gasstat], altemp);
 	lcd_gotoxy(0, 0);
 	lcd_puts(bf);
+	free(bf);
 }
 
 void led(uint16_t vr) {
@@ -170,11 +172,11 @@ int main(void) {
 	IOcon io;
 	boolean swFlag = false, buzflag = false, alflag = false;
 	uint16_t cds, vr;
-	uint32_t last = NOW;
-	uint32_t flast = NOW;
-	uint32_t tuplast = NOW;
-	uint32_t tdownlast = NOW;
-	uint32_t buzlast = NOW;
+	uint32_t last = NOW(0);
+	uint32_t flast = NOW(0);
+	uint32_t tuplast = NOW(0);
+	uint32_t tdownlast = NOW(0);
+	uint32_t buzlast = NOW(0);
 	/* USER CODE END 1 */
 
 	/* MCU Configuration--------------------------------------------------------*/
@@ -275,8 +277,8 @@ int main(void) {
 		} else {
 			swFlag = false;
 		}
-		if (NOW - last >= 10) {
-			if (NOW - flast >= 100) {
+		if (NOW(last) >= 10) {
+			if (NOW(flast) >= 100) {
 				if (fire < fireset) {
 					fire++;
 					io.Lcd_Print();
@@ -287,32 +289,32 @@ int main(void) {
 					io.Lcd_Print();
 					ledRingFlag = true;
 				}
-				flast = NOW;
+				flast = NOW(0);
 			}
-			last = NOW;
+			last = NOW(0);
 		}
-		if (NOW - tuplast >= TEMPUP(fire) && TEMPUP(fire) != 0) {
+		if (NOW(tuplast) >= TEMPUP(fire) && TEMPUP(fire) != 0) {
 			temp++;
-			tuplast = NOW;
+			tuplast = NOW(0);
 			if (temp > 300)
 				stat.over = true;
 			io.Lcd_Print();
 		}
-		if (NOW - tdownlast >= TEMPDOWN(temp - 20)
+		if (NOW(tdownlast) >= TEMPDOWN(temp - 20)
 				&& TEMPDOWN(temp - 20) != 0) {
 			temp--;
 			if (temp < 20)
 				temp = 20;
-			tdownlast = NOW;
+			tdownlast = NOW(0);
 			io.Lcd_Print();
 		}
 		if (!buzflag && stat.over) {
-			buzlast = NOW;
+			buzlast = NOW(0);
 			buzflag = true;
 		}
 		if (altemp < temp && altemp > 20) {
 			if (!alflag) {
-				buzlast = NOW;
+				buzlast = NOW(0);
 				alflag = true;
 			}
 		} else {
@@ -320,20 +322,20 @@ int main(void) {
 			alflag = false;
 		}
 		if (buzflag) {
-			if ((NOW - buzlast >= 100 && NOW - buzlast <= 200)
-					|| (NOW - buzlast >= 300 && NOW - buzlast <= 400)
-					|| (NOW - buzlast >= 500 && NOW - buzlast <= 600))
+			if ((NOW(buzlast) >= 100 && NOW(buzlast) <= 200)
+					|| (NOW(buzlast) >= 300 && NOW(buzlast) <= 400)
+					|| (NOW(buzlast) >= 500 && NOW(buzlast) <= 600))
 				BUZZER(true);
 			else
 				BUZZER(false);
 		} else if (alflag) {
-			if ((NOW - buzlast >= 0 && NOW - buzlast <= 100)
-					|| (NOW - buzlast >= 200 && NOW - buzlast <= 300))
+			if ((NOW(buzlast) >= 0 && NOW(buzlast) <= 100)
+					|| (NOW(buzlast) >= 200 && NOW(buzlast) <= 300))
 				BUZZER(true);
 			else
 				BUZZER(false);
-			if (NOW - buzlast >= 1000)
-				buzlast = NOW;
+			if (NOW(buzlast) >= 1000)
+				buzlast = NOW(0);
 		}
 		io.Lcd_Print();
 	}
