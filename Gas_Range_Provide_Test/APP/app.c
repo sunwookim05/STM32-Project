@@ -10,7 +10,7 @@
 #define SW5 HAL_GPIO_ReadPin(SW_B_GPIO_Port, SW_B_Pin)
 #define BUZZER(X) HAL_GPIO_WritePin(BUZZ_GPIO_Port, BUZZ_Pin, X)
 #define LED(N, X) HAL_GPIO_WritePin(LED##N##_GPIO_Port, LED##N##_Pin, !X)
-#define NOW HAL_GetTick()
+#define NOW(X) (HAL_GetTick() - X)
 #define TEMPUP(X) (X == 1 ? 900 : X == 2 ? 800 : X == 3 ? 700 : X == 4 ? 600 : X == 5 ? 500 : X == 6 ? 400 : X == 7 ? 300 : X == 8 ? 200 : X == 9 ? 100 : 0)
 #define TEMPDOWN(X) (X < 10 ? 2900 : X >= 300 ? 100 : X >= 200 ? 200 : X >= 100 ? 400 : X >= 40 ? 700 : X >= 20 ? 1100 : X >= 15 ? 1600 : X >= 10 ? 2200 : 0)
 #define LEDCLEAR LED(1, false); LED(2, false); LED(3, false); LED(4, false); LED(5, false);
@@ -28,16 +28,17 @@ void setUp() {
 		Set_LED(i, 0, 0, 0);
 		WS2812_Send();
 	}
+	lcd_cgram(1, 0);
 }
 
 void appLoop() {
 	lcd_gotoxy(0, 1);
-	sprintf(str, "Hello World!");
+	sprintf(s0tr, "Hello World!");
 	lcd_puts(str);
 	lcd_gotoxy(0, 0);
 	sprintf(str, "%s",bool[i]);
 	lcd_puts(str);
-	if (NOW - last >= 10) {
+	if (NOW(last) >= 10) {
 		if (!SW3) {
 			if(!swFlag){
 				i = !i;
@@ -46,6 +47,6 @@ void appLoop() {
 		}else{
 			swFlag = false;
 		}
-		last = NOW;
+		last = NOW(0);
 	}
 }

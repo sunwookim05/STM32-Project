@@ -11,6 +11,5 @@ extern DMA_HandleTypeDef hdma_tim2_ch1;
 
 void Set_LED(int LEDnum, int Red, int Green, int Blue);
 void WS2812_Send(void);
-void Set_Brightness(int brightness);
 
 #endif
